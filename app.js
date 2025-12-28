@@ -55,13 +55,13 @@ const App={
  async confirmPair(){
   console.log("Confirm clicked", userId, window._invite);
 
-  if (!API_URL) {
+  if (!APP_URL) {
     alert("API_URL missing");
     return;
   }
 
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetch(APP_URL, {
       method: "POST",
       body: JSON.stringify({
         action: "pairUsers",
@@ -83,11 +83,11 @@ const App={
 },
   async send(){
     if(!text.value)return;
-    await fetch(API_URL,{method:'POST',body:JSON.stringify({action:'sendMessage',from:userId,to:partnerId,cipher:{text:text.value}})});
+    await fetch(APP_URL,{method:'POST',body:JSON.stringify({action:'sendMessage',from:userId,to:partnerId,cipher:{text:text.value}})});
     text.value=''
   },
   async poll(){
-    const r=await fetch(API_URL+'?action=getMessages&user='+userId);
+    const r=await fetch(APP_URL+'?action=getMessages&user='+userId);
     const d=await r.json();messages.innerHTML='';
     d.forEach(m=>{const div=document.createElement('div');div.className='msg '+(m[1]===userId?'me':'them');div.textContent=m[3].text;messages.appendChild(div)});
     messages.scrollTop=messages.scrollHeight
