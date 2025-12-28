@@ -52,10 +52,35 @@ const App={
   createInvite(){
     inviteLink.innerText=location.origin+location.pathname+'?invite='+userId
   },
-  async confirmPair(){
-    await fetch(API_URL,{method:'POST',body:JSON.stringify({action:'pairUsers',userId,partnerId:window._invite})});
-    partnerId=window._invite;localStorage.partnerId=partnerId;this.route()
-  },
+ async confirmPair(){
+  console.log("Confirm clicked", userId, window._invite);
+
+  if (!API_URL) {
+    alert("API_URL missing");
+    return;
+  }
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "pairUsers",
+        userId,
+        partnerId: window._invite
+      })
+    });
+
+    if (!res.ok) throw new Error("Backend error");
+
+    partnerId = window._invite;
+    localStorage.partnerId = partnerId;
+    this.route();
+
+  } catch (e) {
+    console.error("Pairing failed", e);
+    alert("Pairing failed. Check console.");
+  }
+},
   async send(){
     if(!text.value)return;
     await fetch(API_URL,{method:'POST',body:JSON.stringify({action:'sendMessage',from:userId,to:partnerId,cipher:{text:text.value}})});
