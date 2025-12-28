@@ -1,5 +1,5 @@
 ﻿// CONFIG – replace with your real values
-const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwAFWjCO-YO7G05yww1Z0lrxYfYZk2qxY8YG00f2hmIuZzr-bC-QnRRiFMHrHhbj-Ey/exec";
+const APP_URL = "https://script.google.com/macros/s/AKfycbwAFWjCO-YO7G05yww1Z0lrxYfYZk2qxY8YG00f2hmIuZzr-bC-QnRRiFMHrHhbj-Ey/exec";
 
 const firebaseConfig = {
 
